@@ -68,7 +68,9 @@ private extension OnboardingViewController {
 private extension OnboardingViewController {
     func setupButton() {
         view.addSubview(bottomButton)
-        bottomButton.action = buttonPressed
+        bottomButton.action = { [weak self] in
+             self?.buttonPressed()
+        }
         bottomButton.translatesAutoresizingMaskIntoConstraints = false
         bottomButton.scheme = .gray
         
