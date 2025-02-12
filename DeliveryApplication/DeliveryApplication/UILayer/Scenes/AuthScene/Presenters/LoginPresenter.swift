@@ -47,11 +47,11 @@ extension LoginPresenter: LoginViewOutput {
     }
     
     func goToSignIn() {
-        
+        coordinator?.showSignInScene()
     }
     
     func goToSignUp() {
-    
+        coordinator?.showSignUpScene()
     }
     
     func goToForgotPass() {
