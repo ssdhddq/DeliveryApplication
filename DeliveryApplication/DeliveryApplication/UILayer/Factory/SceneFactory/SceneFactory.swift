@@ -10,16 +10,10 @@ import UIKit
 struct SceneFactory {
     
     //MARK: - Onboarding flow
-    static func makeOnboardingFlow(coordinator: AppCoordinator, finishDelegate: CoordinatorFinishDelegate, navigationController: UINavigationController) -> OnboardingCoordinator{
+    static func makeOnboardingFlow(coordinator: AppCoordinator, finishDelegate: CoordinatorFinishDelegate, navigationController: UINavigationController) {
         let onboardingCoordinator = OnboardingCoordinator(type: .onboarding, navigationController: navigationController, finishDelegate: finishDelegate)
         coordinator.addChildCoordinator(onboardingCoordinator)
-        return onboardingCoordinator
-    }
-    
-    static func makeLoginFlow(coordinator: AppCoordinator, finishDelegate: CoordinatorFinishDelegate, navigationController: UINavigationController) -> LoginCoordinator{
-        let loginCoordinator = LoginCoordinator(type: .login, navigationController: navigationController, finishDelegate: finishDelegate)
-        coordinator.addChildCoordinator(loginCoordinator)
-        return loginCoordinator
+        onboardingCoordinator.start()
     }
     
     static func makeOnboardingScene(coordinator: OnboardingCoordinator) -> OnboardingViewController {
@@ -92,19 +86,19 @@ struct SceneFactory {
         return tabBarController
     }
     
-    static func makeAuthScene(coordinator: LoginCoordinator) -> LoginViewController {
+    static func makeAuthScene(coordinator: AppCoordinator) -> LoginViewController {
         let presenter = LoginPresenter(coordinator: coordinator)
         let controller = LoginViewController(viewOutput: presenter, state: .initial)
         return controller
     }
     
-    static func makeSignInScene(coordinator: LoginCoordinator) -> LoginViewController {
+    static func makeSignInScene(coordinator: AppCoordinator) -> LoginViewController {
         let presenter = LoginPresenter(coordinator: coordinator)
         let controller = LoginViewController(viewOutput: presenter, state: .signIn)
         return controller
     }
     
-    static func makeSignUpScene(coordinator: LoginCoordinator) -> LoginViewController {
+    static func makeSignUpScene(coordinator: AppCoordinator) -> LoginViewController {
         let presenter = LoginPresenter(coordinator: coordinator)
         let controller = LoginViewController(viewOutput: presenter, state: .signUp)
         return controller

@@ -20,24 +20,15 @@ protocol LoginViewOutput: AnyObject {
 
 class LoginPresenter {
     
-    private var coordinator: LoginCoordinator?
+    private var coordinator: AppCoordinator?
     weak var viewInput: LoginViewInput?
     
-    init(coordinator: LoginCoordinator? = nil, viewInput: LoginViewInput? = nil) {
+    init(coordinator: AppCoordinator? = nil, viewInput: LoginViewInput? = nil) {
         self.coordinator = coordinator
         self.viewInput = viewInput
     }
 }
 
-<<<<<<< Updated upstream
-=======
-private extension LoginPresenter {
-    func goToMainScreen() {
-        coordinator?.finish()
-    }
-}
-
->>>>>>> Stashed changes
 extension LoginPresenter: LoginViewOutput {
     func loginStart() {
         
