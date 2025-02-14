@@ -29,7 +29,8 @@ class AppCoordinator: Coordinator{
 private extension AppCoordinator {
     func showOnboardingFlow() {
         guard let navigationController = navigationController else { return }
-        factory.makeOnboardingFlow(coordinator: self,finishDelegate: self, navigationController: navigationController)
+        let onboardingCoordinator = factory.makeOnboardingFlow(coordinator: self,finishDelegate: self, navigationController: navigationController)
+        onboardingCoordinator.start()
     }
     
     func showMainFlow() {
@@ -41,6 +42,7 @@ private extension AppCoordinator {
     
     func showAuthFlow() {
         guard let navigationController = navigationController else { return }
+<<<<<<< Updated upstream
         let vc = factory.makeAuthScene(coordinator: self)
         navigationController.pushViewController(vc, animated: true)
     }
@@ -58,9 +60,14 @@ extension AppCoordinator {
         guard let navigationController = navigationController else { return }
         let vc = factory.makeSignUpScene(coordinator: self)
         navigationController.pushViewController(vc, animated: true)
+=======
+        let loginCoordinator = factory.makeLoginFlow(coordinator: self, finishDelegate: self, navigationController: navigationController)
+        loginCoordinator.start()
+>>>>>>> Stashed changes
     }
 }
 
+//MARK: - FinishDelegate
 extension AppCoordinator: CoordinatorFinishDelegate {
     func coordinatorDidFinish(_ childCoordinator: CoordinatorProtocol) {
         removeChildCoordinator(childCoordinator)
@@ -69,6 +76,9 @@ extension AppCoordinator: CoordinatorFinishDelegate {
         case .onboarding:
             navigationController?.viewControllers.removeAll()
             showAuthFlow()
+        case .login:
+            navigationController?.viewControllers.removeAll()
+            showMainFlow()
         case .app:
             return
         default:
